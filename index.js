@@ -1,4 +1,10 @@
 const inquirer = require("inquirer");
+const Engineer= require("./lib/Engineer");
+const Intern= require("./lib/Intern");
+const Manager = require("./lib/Manager");
+const Employee = require("./lib/Employee");
+
+
 const fs = require("fs");
 const team = [];
 
@@ -12,7 +18,9 @@ const roleChoice = () => {
         message: "Choose from the following roles.",
         choices: ["Engineer", "Intern", "Manager", "Back"],
       },
+      
     ])
+    
     .then((rolechosen) => {
       switch (rolechosen.choice) {
         case "Engineer":
@@ -29,6 +37,7 @@ const roleChoice = () => {
           break;
       }
     });
+    
 };
 roleChoice();
 
@@ -65,24 +74,12 @@ const engineerChoice = () => {
           engineerAnswers.name,
           engineerAnswers.Email,
           engineerAnswers.Github
-        )
-);
-console.log(Engineer);
-      const engineerInit  = () => {
-        engineerChoice()
-        .then((answers) => {
-            const htmlContent = generateHTML(answers);
-            fs.writeFile('index.html', htmlContent, (err)=>
-            err ? console.log(err): console.log('HTML has been created! That was a baller move!')
-            );
-        });
-        }
-        engineerInit();
-
-      roleChoice();
-      
-    });
+          )
+         
+    )
+});
 };
+     
 const internChoice = () => {
   return inquirer.prompt([
     {
@@ -105,8 +102,20 @@ const internChoice = () => {
       name: "School",
       message: "What School did you go to?",
     },
-  ]);
+  ])
+  .then((engineerAnswers) => {
+    team.push(
+      new Intern(
+        engineerAnswers.ID,
+        engineerAnswers.name,
+        engineerAnswers.Email,
+        engineerAnswers.School,
+        )
+       
+  )
+});
 };
+
 
 const managerChoice = () => {
   return inquirer.prompt([
@@ -130,8 +139,20 @@ const managerChoice = () => {
       name: "officeNumber",
       message: "What is your office number?",
     },
-  ]);
+  ])
+  .then((managerAnswers) => {
+    team.push(
+      new Manager(
+        managerAnswers.ID,
+        managerAnswers.name,
+        managerAnswers.Email,
+        managerAnswers.officeNumber,
+        )
+       
+  )
+});
 };
+
 const generateHTML = ({ name, ID, Email, School, Github, officeNumber }) =>
   `<!DOCTYPE html>
 <html lang="en">
@@ -151,4 +172,13 @@ const generateHTML = ({ name, ID, Email, School, Github, officeNumber }) =>
   </section>
   `;
 
-
+  // const engineerInit  = () => {
+  //     engineerChoice()
+  //       .then((answers) => {
+  //           const htmlContent = generateHTML(answers);
+  //           fs.writeFile('index.html', htmlContent, (err)=>
+  //           err ? console.log(err): console.log('HTML has been created! That was a baller move!')
+  //           );
+  //       });
+  //       }
+  //       engineerInit();
