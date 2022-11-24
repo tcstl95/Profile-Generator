@@ -1,8 +1,9 @@
+// Referencing inquirer
 const inquirer = require("inquirer");
+// Referencing FS
 const fs = require("fs");
-const team = [];
 
-
+// Create a Main Menu the user can use to choose a role
 const roleChoice = () => {
   return inquirer
     .prompt([
@@ -14,7 +15,7 @@ const roleChoice = () => {
       },
       
     ])
-    
+    // Once the user chooses a role, the application goes to that role's set of questions
     .then((rolechosen) => {
       switch (rolechosen.choice) {
         case "Engineer":
@@ -33,8 +34,9 @@ const roleChoice = () => {
     });
     
 };
+// Calling the function
 roleChoice();
-
+// Engineer's set of questions
 const engineerChoice = () => {
  
   return inquirer
@@ -60,6 +62,7 @@ const engineerChoice = () => {
         message: "What is your Github?",
       },
     ])
+    // Creates HTML after user answers Engineer questions
     .then((answers) => {
       const htmlPageContent = engineerHTML(answers);
   
@@ -70,7 +73,7 @@ const engineerChoice = () => {
 
 
 };
-     
+  // Questions for Intern's role 
 const internChoice = () => {
   return inquirer.prompt([
     {
@@ -94,6 +97,7 @@ const internChoice = () => {
       message: "What School did you go to?",
     },
   ])
+  //Creates HTML once user answers Intern's questions
   .then((data) => {
     const htmlPageContent = internHTML(data);
 
@@ -104,7 +108,7 @@ const internChoice = () => {
 });
 }
 
-
+// Questions for Manager role
 const managerChoice = () => {
   return inquirer.prompt([
     {
@@ -128,6 +132,7 @@ const managerChoice = () => {
       message: "What is your office number?",
     },
   ])
+  //Creates HTML once user answers Manager's questions
   .then((data) => {
     const htmlPageContent = managerHTML(data);
 
@@ -138,7 +143,7 @@ const managerChoice = () => {
 });
   
   }
-
+//Structure of the Engineer HTML
 const engineerHTML = ({ name, id, Email,Github, }) =>
   `<!DOCTYPE html>
 <html lang="en">
@@ -156,7 +161,7 @@ const engineerHTML = ({ name, id, Email,Github, }) =>
   <h2> Github: ${Github}</h2>
   </section>
   `;
-
+// Structure of the Intern HTML
   const internHTML = ({ name, id, Email,School, }) =>
   `<!DOCTYPE html>
 <html lang="en">
@@ -174,7 +179,7 @@ const engineerHTML = ({ name, id, Email,Github, }) =>
   <h2> School: ${School}</h2>
   </section>
   `;
-
+// Strucutre of the Manager HTML
   const managerHTML = ({ name, id, Email,officeNumber, }) =>
   `<!DOCTYPE html>
 <html lang="en">
