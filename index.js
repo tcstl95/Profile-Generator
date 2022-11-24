@@ -145,12 +145,12 @@ const engineerHTML = ({ name, id, Email,Github, }) =>
 <head>
   <meta charset="UTF-8">
   <title>Document</title>
-  <link rel = "stylesheet" type= "text/css" href= "./engineer.css"/>
+  <link rel = "stylesheet" type= "text/css" href= "./css/engineer.css"/>
   </head>
   <body>
-  <header> My Team</header>
+  <h1> Engineer </h1>
   <section>
-  <h1>Name: ${name}</h1>
+  <h2>Name: ${name}</h2>
   <h2>ID: ${id}</h2>
   <h2>Email: ${Email}</h2>
   <h2> Github: ${Github}</h2>
@@ -163,12 +163,12 @@ const engineerHTML = ({ name, id, Email,Github, }) =>
 <head>
   <meta charset="UTF-8">
   <title>Document</title>
-  <link rel = "stylesheet" type= "text/css" href= "./intern.css"/>
+  <link rel = "stylesheet" type= "text/css" href= "./css/intern.css"/>
   </head>
   <body>
-  <header> My Team</header>
+  <h1> Intern </h1>
   <section>
-  <h1>Name: ${name}</h1>
+  <h2>Name: ${name}</h2>
   <h2>ID: ${id}</h2>
   <h2>Email: ${Email}</h2>
   <h2> School: ${School}</h2>
@@ -181,12 +181,12 @@ const engineerHTML = ({ name, id, Email,Github, }) =>
 <head>
   <meta charset="UTF-8">
   <title>Document</title>
-  <link rel = "stylesheet" type= "text/css" href= "./manager.css"/>
+  <link rel = "stylesheet" type= "text/css" href= "./css/manager.css"/>
   </head>
   <body>
-  <h1> My Team</h1>
+  <h1> Manager</h1>
   <section>
-  <h1>Name: ${name}</h1>
+  <h2>Name: ${name}</h2>
   <h2>ID: ${id}</h2>
   <h2>Email: ${Email}</h2>
   <h2> Office Number: ${officeNumber}</h2>
