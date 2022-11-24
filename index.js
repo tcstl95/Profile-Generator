@@ -1,10 +1,4 @@
 const inquirer = require("inquirer");
-const Engineer= require("./lib/Engineer");
-const Intern= require("./lib/Intern");
-const Manager = require("./lib/Manager");
-const Employee = require("./lib/Employee");
-
-
 const fs = require("fs");
 const team = [];
 
@@ -41,7 +35,6 @@ const roleChoice = () => {
 };
 roleChoice();
 
-
 const engineerChoice = () => {
  
   return inquirer
@@ -53,7 +46,7 @@ const engineerChoice = () => {
       },
       {
         type: "input",
-        name: "ID",
+        name: "id",
         message: "What is your ID number?",
       },
       {
@@ -67,17 +60,15 @@ const engineerChoice = () => {
         message: "What is your Github?",
       },
     ])
-    .then((engineerAnswers) => {
-      team.push(
-        new Engineer(
-          engineerAnswers.ID,
-          engineerAnswers.name,
-          engineerAnswers.Email,
-          engineerAnswers.Github
-          )
-         
-    )
-});
+    .then((answers) => {
+      const htmlPageContent = engineerHTML(answers);
+  
+      fs.writeFile('engineer.html', htmlPageContent, (err) =>
+        err ? console.log(err) : console.log('Successfully created index.html!')
+      );
+    })
+
+
 };
      
 const internChoice = () => {
@@ -89,7 +80,7 @@ const internChoice = () => {
     },
     {
       type: "input",
-      name: "ID",
+      name: "id",
       message: "What is your ID number?",
     },
     {
@@ -103,18 +94,15 @@ const internChoice = () => {
       message: "What School did you go to?",
     },
   ])
-  .then((engineerAnswers) => {
-    team.push(
-      new Intern(
-        engineerAnswers.ID,
-        engineerAnswers.name,
-        engineerAnswers.Email,
-        engineerAnswers.School,
-        )
-       
-  )
+  .then((data) => {
+    const htmlPageContent = internHTML(data);
+
+    fs.writeFile('intern.html', htmlPageContent, (err) =>
+      err ? console.log(err) : console.log('Successfully created index.html!')
+    );
+  
 });
-};
+}
 
 
 const managerChoice = () => {
@@ -126,7 +114,7 @@ const managerChoice = () => {
     },
     {
       type: "input",
-      name: "ID",
+      name: "id",
       message: "What is your ID number?",
     },
     {
@@ -140,45 +128,69 @@ const managerChoice = () => {
       message: "What is your office number?",
     },
   ])
-  .then((managerAnswers) => {
-    team.push(
-      new Manager(
-        managerAnswers.ID,
-        managerAnswers.name,
-        managerAnswers.Email,
-        managerAnswers.officeNumber,
-        )
-       
-  )
-});
-};
+  .then((data) => {
+    const htmlPageContent = managerHTML(data);
 
-const generateHTML = ({ name, ID, Email, School, Github, officeNumber }) =>
+    fs.writeFile('manager.html', htmlPageContent, (err) =>
+      err ? console.log(err) : console.log('Successfully created index.html!')
+    );
+
+});
+  
+  }
+
+const engineerHTML = ({ name, id, Email,Github, }) =>
   `<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <title>Document</title>
+  <link rel = "stylesheet" type= "text/css" href= "./engineer.css"/>
   </head>
   <body>
   <header> My Team</header>
   <section>
   <h1>Name: ${name}</h1>
-  <h2>ID: ${ID}</h2>
+  <h2>ID: ${id}</h2>
+  <h2>Email: ${Email}</h2>
+  <h2> Github: ${Github}</h2>
+  </section>
+  `;
+
+  const internHTML = ({ name, id, Email,School, }) =>
+  `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+  <link rel = "stylesheet" type= "text/css" href= "./intern.css"/>
+  </head>
+  <body>
+  <header> My Team</header>
+  <section>
+  <h1>Name: ${name}</h1>
+  <h2>ID: ${id}</h2>
   <h2>Email: ${Email}</h2>
   <h2> School: ${School}</h2>
-  <h2> Github: ${Github}</h2>
+  </section>
+  `;
+
+  const managerHTML = ({ name, id, Email,officeNumber, }) =>
+  `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+  <link rel = "stylesheet" type= "text/css" href= "./manager.css"/>
+  </head>
+  <body>
+  <h1> My Team</h1>
+  <section>
+  <h1>Name: ${name}</h1>
+  <h2>ID: ${id}</h2>
+  <h2>Email: ${Email}</h2>
   <h2> Office Number: ${officeNumber}</h2>
   </section>
   `;
 
-  // const engineerInit  = () => {
-  //     engineerChoice()
-  //       .then((answers) => {
-  //           const htmlContent = generateHTML(answers);
-  //           fs.writeFile('index.html', htmlContent, (err)=>
-  //           err ? console.log(err): console.log('HTML has been created! That was a baller move!')
-  //           );
-  //       });
-  //       }
-  //       engineerInit();
+ 
